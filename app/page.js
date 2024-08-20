@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Image from "next/image";
 import getStripe from "@/utils/get-stripe";
@@ -12,6 +12,10 @@ import {
   Toolbar,
   Typography,
   Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Paper,
 } from "@mui/material";
 
 export default function Home() {
@@ -37,8 +41,17 @@ export default function Home() {
   }
 
   return (
-    <Container>
-      <AppBar position="static">
+    <>
+      <Head>
+        <title>Flashcard SaaS</title>
+        <meta
+          name="description"
+          content="The easiest way to create flashcards from your text."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             Flashcard SaaS
@@ -56,39 +69,168 @@ export default function Home() {
           </SignedIn>
         </Toolbar>
       </AppBar>
-      <Box sx={{ textAlign: "center", my: 4 }}>
-        <Typography variant="h2" component="h1" gutterBottom>
-          Welcome to Flashcard SaaS
+
+      <Container sx={{ mt: 4 }}>
+        {/* Hero Section */}
+        <Box sx={{ textAlign: "center", my: 6 }}>
+          <Typography variant="h2" component="h1" gutterBottom>
+            Welcome to Flashcard SaaS
+          </Typography>
+          <Typography variant="h5" component="h2" gutterBottom>
+            The easiest way to create flashcards from your text.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2, mr: 2 }}
+            href="/generate"
+          >
+            Get Started
+          </Button>
+          <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
+            Learn More
+          </Button>
+        </Box>
+
+        {/* Features Section */}
+        <Box sx={{ my: 8 }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Features
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={3} sx={{ padding: 4, height: "100%" }}>
+                <Typography variant="h6" component="h3" gutterBottom>
+                  Easy to Use
+                </Typography>
+                <Typography variant="body1">
+                  Create flashcards effortlessly with our intuitive interface.
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={3} sx={{ padding: 4, height: "100%" }}>
+                <Typography variant="h6" component="h3" gutterBottom>
+                  Customizable
+                </Typography>
+                <Typography variant="body1">
+                  Customize your flashcards with different fonts, colors, and layouts.
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={3} sx={{ padding: 4, height: "100%" }}>
+                <Typography variant="h6" component="h3" gutterBottom>
+                  Shareable
+                </Typography>
+                <Typography variant="body1">
+                  Easily share your flashcards with friends or students.
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* Pricing Section */}
+        <Box sx={{ my: 8, textAlign: "center" }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Pricing
+          </Typography>
+          <Grid container spacing={4} justifyContent="center">
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="h2" gutterBottom>
+                    Free
+                  </Typography>
+                  <Typography variant="h6" color="textSecondary">
+                    $0/month
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Basic flashcard creation
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Limited storage
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                    fullWidth
+                  >
+                    Get Started
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="h2" gutterBottom>
+                    Pro
+                  </Typography>
+                  <Typography variant="h6" color="textSecondary">
+                    $10/month
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Unlimited flashcards
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Advanced customization
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                    fullWidth
+                  >
+                    Upgrade Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="h2" gutterBottom>
+                    Enterprise
+                  </Typography>
+                  <Typography variant="h6" color="textSecondary">
+                    Contact Us
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Customized solutions for large organizations
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button variant="contained" color="primary" fullWidth>
+                    Contact Sales
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+
+      {/* Footer Section */}
+      <Box
+        sx={{
+          py: 4,
+          mt: 8,
+          backgroundColor: "primary.main",
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="body1">
+          © {new Date().getFullYear()} Flashcard SaaS. All rights reserved.
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
-          The easiest way to create flashcards from your text.
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2, mr: 2 }}
-          href="/generate"
-        >
-          Get Started
-        </Button>
-        <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
-          Learn More
-        </Button>
       </Box>
-      <Box sx={{ my: 6 }}>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Features
-        </Typography>
-        {/* Add features here */}
-      </Box>
-      <Box sx={{ my: 6, textAlign: "center" }}>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Pricing
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {/* Pricing plans */}
-        </Grid>
-      </Box>
-    </Container>
+    </>
   );
 }

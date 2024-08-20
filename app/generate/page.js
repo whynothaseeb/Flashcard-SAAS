@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { doc, collection, getDoc, writeBatch } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
-import { db } from "@/firebase"; // Import your Firestore db instance
+import { db } from '../../firebase'; // Import your Firestore db instance
 
 export default function Generate() {
   const { isLoaded, isSignedIn, user } = useUser();
