@@ -1,6 +1,8 @@
+'use client'
+
 import Image from "next/image";
 import getStripe from "@/utils/get-stripe";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import {
   Box,
@@ -13,29 +15,29 @@ import {
 } from "@mui/material";
 
 export default function Home() {
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const handleSubmit = async () => {
     const checkoutSession = await fetch("/api/checkout_sessions", {
       method: "POST",
       headers: { origin: "http://localhost:3000" },
     });
     const checkoutSessionJson = await checkoutSession.json();
-
     const stripe = await getStripe();
     const { error } = await stripe.redirectToCheckout({
       sessionId: checkoutSessionJson.id,
     });
-
     if (error) {
       console.warn(error.message);
     }
   };
 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Container>
-      <Head>
-        <title>Flashcard SaaS</title>
-        <meta name="description" content="Create Flashcards from text" />
-      </Head>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
