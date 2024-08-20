@@ -1,27 +1,30 @@
 "use client";
+
 import React from "react";
 import {
   Container,
   Box,
   Typography,
   Grid,
+  Link,
   Paper,
 } from "@mui/material";
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import Link from "next/link"; // Import Link here
 import Header from "@/app/components/header";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const router = useRouter();
 
   return (
-    <> 
-    <Header />
+    <> <Header />
     <Container maxWidth="sm" sx={{ mt: 8 }}>
       <Paper elevation={6} sx={{ p: 4, borderRadius: 3 }}>
         <Typography variant="h4" component="h1" gutterBottom align="center">
-          Sign In
+          Create an Account
+        </Typography>
+        <Typography variant="body1" gutterBottom align="center">
+          Join us and start your journey
         </Typography>
         <Box
           display="flex"
@@ -30,14 +33,14 @@ export default function SignInPage() {
           justifyContent="center"
           sx={{ mt: 3 }}
         >
-          <SignIn />
+          <SignUp routing="hash" /> {/* Use routing="hash" if not using a catch-all route */}
         </Box>
         <Grid container justifyContent="flex-end" sx={{ mt: 3 }}>
           <Grid item>
             <Typography variant="body2">
-              Don't have an account?{" "}
-              <Link href="/sign-up" passHref>
-                Sign Up
+              Already have an account?{" "}
+              <Link href="/sign-in" underline="hover">
+                Sign In
               </Link>
             </Typography>
           </Grid>

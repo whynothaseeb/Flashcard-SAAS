@@ -20,6 +20,7 @@ import {
 import { doc, collection, getDoc, writeBatch } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import { db } from '../../firebase'; // Import your Firestore db instance
+import Header from "../components/header";
 
 export default function Generate() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -112,9 +113,20 @@ export default function Generate() {
   };
 
   return (
+    <>
+    <Header />
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: "primary.main",
+          }}
+        >
           Generate Flashcards
         </Typography>
         <TextField
@@ -125,13 +137,22 @@ export default function Generate() {
           multiline
           rows={4}
           variant="outlined"
-          sx={{ mb: 2 }}
+          sx={{ mb: 3, borderRadius: 2, boxShadow: 2 }}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={handleSubmit}
           fullWidth
+          sx={{
+            padding: 1,
+            fontWeight: "bold",
+            boxShadow: 3,
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+          }}
         >
           Generate Flashcards
         </Button>
@@ -139,14 +160,39 @@ export default function Generate() {
 
       {flashcards.length > 0 && (
         <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
+          <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
+            sx={{
+              textAlign: "center",
+              fontWeight: "bold",
+              color: "secondary.main",
+            }}
+          >
             Generated Flashcards
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             {flashcards.map((flashcard, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card onClick={() => handleCardClick(flashcard.name)}>
-                  <CardContent>
+                <Card
+                  onClick={() => handleCardClick(flashcard.name)}
+                  sx={{
+                    cursor: "pointer",
+                    transition: "transform 0.2s",
+                    "&:hover": {
+                      transform: "scale(1.05)",
+                    },
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      textAlign: "center",
+                      backgroundColor: "primary.light",
+                      color: "common.white",
+                      borderRadius: 2,
+                    }}
+                  >
                     <Typography variant="h6">Front:</Typography>
                     <Typography>{flashcard.front}</Typography>
                     <Typography variant="h6" sx={{ mt: 2 }}>
@@ -161,8 +207,17 @@ export default function Generate() {
           <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={handleOpenDialog}
+              sx={{
+                padding: 1,
+                fontWeight: "bold",
+                boxShadow: 3,
+                borderRadius: 2,
+                "&:hover": {
+                  backgroundColor: "secondary.dark",
+                },
+              }}
             >
               Save Flashcards
             </Button>
@@ -181,11 +236,21 @@ export default function Generate() {
                 fullWidth
                 value={setName}
                 onChange={(e) => setSetName(e.target.value)}
+                sx={{ borderRadius: 2 }}
               />
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCloseDialog}>Cancel</Button>
-              <Button onClick={saveFlashcards} color="primary">
+              <Button
+                onClick={saveFlashcards}
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "primary.dark",
+                  },
+                }}
+              >
                 Save
               </Button>
             </DialogActions>
@@ -193,5 +258,6 @@ export default function Generate() {
         </Box>
       )}
     </Container>
+    </>
   );
 }
